@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+
+    <record id="hospital_doctor_head_demo" model="hospital.doctor">
+        <field name="name">Doctor 1</field>
+        <field name="description">Head doctor</field>
+        <field name="is_active">True</field>
+    </record>
+
+    <record id="hospital_doctor_exp_demo" model="hospital.doctor">
+        <field name="name">Doctor 2</field>
+        <field name="description">Experienced doctor</field>
+        <field name="is_active">True</field>
+    </record>
+
+    <record id="hospital_doctor_spec_demo" model="hospital.doctor">
+        <field name="name">Doctor 3</field>
+        <field name="description">Specialist in Pediatrics</field>
+        <field name="is_active">True</field>
+    </record>
+
+</odoo>
