@@ -16,19 +16,20 @@ class HospitalDisease(models.Model):
         store=True)
     description = fields.Text()
     parent_id = fields.Many2one(
-        'hospital.disease',
-        'Parent disease',
+        comodel_name='hospital.disease',
+        string='Parent disease',
         index=True,
         ondelete='cascade')
     parent_path = fields.Char(
         index=True,
         unaccent=False)
     child_id = fields.One2many(
-        'hospital.disease',
-        'parent_id',
-        'Child diseases')
+        comodel_name='hospital.disease',
+        inverse_name='parent_id',
+        string='Child diseases')
     disease_count = fields.Integer(
-        '# Diseases', compute='_compute_disease_count',
+        string='# Diseases',
+        compute='_compute_disease_count',
         help="The number of diseases under this \
         disease (Does not consider the children categories)")
 
@@ -50,4 +51,4 @@ class HospitalDisease(models.Model):
     def _check_category_recursion(self):
         if not self._check_recursion():
             raise exceptions.ValidationError(_('You cannot create \
-                                                 recursive diseases.'))
+recursive diseases.'))

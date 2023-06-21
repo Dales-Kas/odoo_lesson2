@@ -15,7 +15,7 @@ class HospitalDiagnosis(models.Model):
     patient_id = fields.Many2one(
         'hospital.patient',
         required=True)
-    disease_id = fields.Many2one('hospital.disease')
+    disease_id = fields.Many2one(comodel_name='hospital.disease')
     appointment = fields.Text()
     doctor_comment = fields.Text(string="Mentor doctor's comment")
     visit_id = fields.Many2one(

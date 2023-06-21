@@ -10,7 +10,7 @@ class HospitalDoctor(models.Model):
     description = fields.Text()
     specialty = fields.Char()
     is_intern = fields.Boolean()
-    mentor_id = fields.Many2one('hospital.doctor')
+    mentor_id = fields.Many2one(comodel_name='hospital.doctor')
 
     @api.constrains('mentor_id')
     def _check_mentor(self):
@@ -21,9 +21,10 @@ class HospitalDoctor(models.Model):
             if doctor.mentor_id and doctor.mentor_id.is_intern:
                 raise exceptions.ValidationError(
                     _("""It's impossible to choose an intern
-                     as a mentor doctor!"""))
+as a mentor doctor!"""))
 
     @api.onchange('is_intern')
+    @api.constrains('is_intern')
     def _onchange_is_intern(self):
         for doctor in self:
             if not doctor.is_intern:

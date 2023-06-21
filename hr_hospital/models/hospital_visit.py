@@ -41,13 +41,6 @@ class HospitalVisit(models.Model):
             if visit.is_finished:
                 raise ValidationError(_('Visit is finished!'))
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        # for values in vals_list:
-        visit = super(HospitalVisit, self).create(vals_list)
-        visit.create_diagnosis()
-        return visit
-
     def create_diagnosis(self):
         diagnosis = self.env['hospital.diagnosis'].create({
             'visit_id': self.id,

@@ -7,5 +7,5 @@ class HospitalDoctorHistory(models.Model):
 
     name = fields.Char()
     date = fields.Datetime(default=fields.Datetime.now)
-    patient_id = fields.Many2one('hospital.patient')
-    doctor_id = fields.Many2one('hospital.doctor')
+    patient_id = fields.Many2one(comodel_name='hospital.patient')
+    doctor_id = fields.Many2one(comodel_name='hospital.doctor')

@@ -12,9 +12,9 @@ class HospitalPatient(models.Model):
     age = fields.Integer(compute='_compute_age')
     passport = fields.Char()
     contact_person_id = fields.Many2one(
-        'hospital.contact.person')
+        comodel_name='hospital.contact.person')
     personal_doctor_id = fields.Many2one(
-        'hospital.doctor')
+        comodel_name='hospital.doctor')
 
     @api.depends('birth_date')
     def _compute_age(self):

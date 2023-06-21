@@ -24,6 +24,7 @@
         'views/hospital_doctor_history_views.xml',
         'wizard/set_personal_doctor_multi_wizard_views.xml',
         'wizard/disease_report_wizard_views.xml',
+        'wizard/create_doctor_schedule_wizard_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
