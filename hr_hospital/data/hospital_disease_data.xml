@@ -1,16 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo noupdate="1">
 
-    <record id="hospital_disease_flu" model="hospital.disease" forcecreate="True">
+    <record id="disease_virus" model="hospital.disease" forcecreate="True">
+        <field name="name">Viruses</field>
+    </record>
+
+    <record id="disease_infectious" model="hospital.disease" forcecreate="True">
+        <field name="name">Infectious diseases</field>
+    </record>
+
+    <record id="disease_flu" model="hospital.disease" forcecreate="True">
         <field name="name">Flu</field>
+        <field name="parent_id" ref="disease_virus"/>
     </record>
 
-    <record id="hospital_disease_cold" model="hospital.disease" forcecreate="True">
+    <record id="disease_cold" model="hospital.disease" forcecreate="True">
         <field name="name">Cold</field>
+        <field name="parent_id" ref="disease_virus"/>
     </record>
 
-    <record id="hospital_disease_covid" model="hospital.disease" forcecreate="True">
+    <record id="disease_covid" model="hospital.disease" forcecreate="True">
         <field name="name">Covid</field>
+        <field name="parent_id" ref="disease_virus"/>
+    </record>
+
+    <record id="disease_botulism" model="hospital.disease" forcecreate="True">
+        <field name="name">Botulism</field>
+        <field name="parent_id" ref="disease_infectious"/>
+    </record>
+
+    <record id="disease_smallpox" model="hospital.disease" forcecreate="True">
+        <field name="name">Smallpox</field>
+        <field name="parent_id" ref="disease_infectious"/>
+    </record>
+
+    <record id="disease_hiv" model="hospital.disease" forcecreate="True">
+        <field name="name">Human immunodeficiency virus</field>
+        <field name="parent_id" ref="disease_infectious"/>
     </record>
 
 </odoo>

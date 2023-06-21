@@ -6,7 +6,16 @@
         <field name="model">hospital.patient</field>
         <field name="arch" type="xml">
             <tree>
+                <header>
+                    <button name="action_open_wizard" string="Set personal doctor Wizard" type="object"/>
+                </header>
                 <field name="name"/>
+                <field name="gender"/>
+                <field name="birth_date"/>
+                <field name="age"/>
+                <field name="passport"/>
+                <field name="contact_person_id"/>
+                <field name="personal_doctor_id"/>
                 <field name="description"/>
             </tree>
         </field>
@@ -20,6 +29,12 @@
                 <sheet>
                     <group>
                         <field name="name"/>
+                        <field name="gender"/>
+                        <field name="birth_date"/>
+                        <field name="age"/>
+                        <field name="passport"/>
+                        <field name="contact_person_id"/>
+                        <field name="personal_doctor_id"/>
                         <field name="description"/>
                     </group>
                 </sheet>
