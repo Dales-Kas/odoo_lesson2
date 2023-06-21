@@ -13,10 +13,16 @@
     <menuitem id = "hospital_document_menu"
               name="Documents"
               parent = "hospital_maim_menu"
-              sequence="100"/>
+              sequence="101"/>
+
+    <menuitem id = "hospital_report_menu"
+              name="Reports"
+              parent = "hospital_maim_menu"
+              sequence="102"/>
 
     <menuitem id = "hospital_settings_menu"
               name="Settings"
-              sequence="9999"/>
+              sequence="9999"
+              />
 
 </odoo>

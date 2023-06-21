@@ -2,7 +2,7 @@
     'name': "hr_hospital",
     'summary': "odoo lesson 2. My first module",
     'author': "dales",
-    'website': "https://www.yourcompany.com",
+    'website': "https://github.com/Dales-Kas",
     'category': 'Extra Tools',
     'version': '16.0.1.0.0',
     'license': "OPL-1",
@@ -18,7 +18,12 @@
         'views/hospital_doctor_views.xml',
         'views/hospital_patient_views.xml',
         'views/hospital_disease_views.xml',
+        'views/hospital_diagnosis_view.xml',
         'views/hospital_visit_views.xml',
+        'views/hospital_doctor_schedule_views.xml',
+        'views/hospital_doctor_history_views.xml',
+        'wizard/set_personal_doctor_multi_wizard_views.xml',
+        'wizard/disease_report_wizard_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
