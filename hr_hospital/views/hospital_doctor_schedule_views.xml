@@ -8,7 +8,7 @@
             <tree>
                 <field name="doctor_id"/>
                 <field name="date"/>
-                <field name="time"/>
+                <field name="hour"/>
             </tree>
         </field>
     </record>
@@ -22,7 +22,7 @@
                     <group>
                         <field name="doctor_id"/>
                         <field name="date"/>
-                        <field name="time"/>
+                        <field name="hour"/>
                     </group>
                 </sheet>
             </form>

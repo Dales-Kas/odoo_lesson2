@@ -43,9 +43,8 @@ class HospitalDisease(models.Model):
 
     def _compute_disease_count(self):
         for disease in self:
-            disease.disease_count = 0
-        # self.env['hospital.diagnosis']
-        # .search_count([('disease_id', 'child_of', disease.id)])
+            disease.disease_count = self.env['hospital.diagnosis'].\
+                search_count([('disease_id', 'child_of', disease.id)])
 
     @api.constrains('parent_id')
     def _check_category_recursion(self):

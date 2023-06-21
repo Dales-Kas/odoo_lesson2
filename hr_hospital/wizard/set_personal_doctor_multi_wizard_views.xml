@@ -28,15 +28,15 @@
         </field>
     </record>
 
-    <record id="action_set_personal_doctor_multi_wizard" model="ir.actions.act_window">
-        <field name="name">Set personal doctor</field>
-        <field name="res_model">set.personal.doctor.multi.wizard</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-        <field name="binding_model_id" ref="model_hospital_patient"/>
-        <field name="binding_view_types">form</field>
-        <field name="binding_type">action</field>
-    </record>
+<!--    <record id="action_set_personal_doctor_multi_wizard" model="ir.actions.act_window">-->
+<!--        <field name="name">Set personal doctor</field>-->
+<!--        <field name="res_model">set.personal.doctor.multi.wizard</field>-->
+<!--        <field name="view_mode">form</field>-->
+<!--        <field name="target">new</field>-->
+<!--        <field name="binding_model_id" ref="model_hospital_patient"/>-->
+<!--        <field name="binding_view_types">list</field>-->
+<!--        <field name="binding_type">action</field>-->
+<!--    </record>-->
 
     <record id="server_action_set_personal_doctor_multi_wizard" model="ir.actions.server">
         <field name="name">Set personal doctor</field>
@@ -46,12 +46,5 @@
             action = model.action_open_wizard()
         </field>
     </record>
-
-<!--    <record id="menu_set_personal_doctor_multi_wizard" model="ir.ui.menu">-->
-<!--        <field name="name">Set personal doctor</field>-->
-<!--        <field name="parent_id" ref="hr_hospital.hospital_catalog_menu"/>-->
-<!--        <field name="action" ref="server_action_set_personal_doctor_multi_wizard"/>-->
-<!--        <field name="sequence" eval="3"/>-->
-<!--    </record>-->
 
 </odoo>

@@ -10,19 +10,20 @@ class HospitalDoctorSchedule(models.Model):
         'hospital.doctor',
         required=True)
     date = fields.Date(required=True)
-    time = fields.Integer()
+    hour = fields.Integer()
 
     @api.constrains('doctor_id', 'date', 'time')
     def _check_unique_schedule(self):
         for record in self:
-            if record.time > 23 or record.time < 0:
+            if record.hour > 23 or record.hour < 0:
                 raise ValidationError(_('time must be between 0-23!'))
             existing_schedule = self.search([
                 ('doctor_id', '=', record.doctor_id.id),
                 ('date', '=', record.date),
-                ('time', '=', record.time),
+                ('hour', '=', record.hour),
                 ('id', '!=', record.id)
             ])
             if existing_schedule:
-                raise ValidationError(_('Schedule already exists\
-                 for this doctor at the given time.'))
+                raise ValidationError(
+                    _('Schedule already exists\
+for this doctor at the given hour.'))

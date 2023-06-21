@@ -1,4 +1,5 @@
 from odoo import models, fields, api, exceptions, _
+from odoo.exceptions import ValidationError
 
 
 class HospitalVisit(models.Model):
@@ -16,6 +17,9 @@ class HospitalVisit(models.Model):
     description = fields.Text()
     is_finished = fields.Boolean()
     active = fields.Boolean(default=True)
+    is_plan = fields.Boolean(string="Is Planned Appointment")
+    appointment_date = fields.Date()
+    appointment_hour = fields.Integer()
 
     def unlink(self):
         for visit in self:
@@ -35,13 +39,7 @@ class HospitalVisit(models.Model):
     def _check_date_doctor(self):
         for visit in self:
             if visit.is_finished:
-                raise exceptions.ValidationError(
-                    _('Visit is finished!'))
-    # def create(self, vals_list):
-    #     visit = self.env['hospital.visit'].create({
-    #         'date': fields.Date.today(),
-    #     })
-    #     visit.create_diagnosis()
+                raise ValidationError(_('Visit is finished!'))
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -58,3 +56,40 @@ class HospitalVisit(models.Model):
             'patient_id': self.patient_id.id,
         })
         self.diagnosis_id = diagnosis.id
+
+    @api.constrains('is_plan',
+                    'appointment_date',
+                    'appointment_hour',
+                    'doctor_id')
+    def _check_unique_plan_date(self):
+        for visit in self:
+            # check planned hour:
+            if visit.is_plan and\
+                    (visit.appointment_hour > 23
+                        or visit.appointment_hour < 0):
+                raise ValidationError(_('time must be between 0-23!'))
+            # check planned date:
+            if visit.is_plan and not visit.appointment_date:
+                raise ValidationError(_('planed date must be filled!'))
+            # check for duplicate planed visit:
+            if visit.is_plan and visit.appointment_date and visit.doctor_id:
+                count = self.search_count([
+                    ('id', '!=', visit.id),
+                    ('appointment_date', '=', visit.appointment_date),
+                    ('doctor_id', '=', visit.doctor_id.id),
+                    ('appointment_hour', '=', visit.appointment_hour),
+                    ('is_plan', '=', True),
+                ])
+                if count > 0:
+                    raise ValidationError(
+                        _("The doctor has another appointment for that date!"))
+            # check doctor's schedule:
+            if visit.is_plan:
+                count = self.env['hospital.doctor.schedule'].search_count([
+                    ('date', '=', visit.appointment_date),
+                    ('doctor_id', '=', visit.doctor_id.id),
+                    ('hour', '=', visit.appointment_hour),
+                ])
+                if count == 0:
+                    raise ValidationError(
+                        _("the doctor is not working at that time!"))

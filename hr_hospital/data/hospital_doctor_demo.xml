@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo noupdate="1">
-
     <record id="doctor_head_demo" model="hospital.doctor">
         <field name="name">Doctor 1</field>
         <field name="description">Head doctor</field>
     </record>
-
     <record id="doctor_experienced_demo" model="hospital.doctor">
         <field name="name">Doctor 2</field>
         <field name="description">Experienced doctor</field>
     </record>
-
     <record id="doctor_spec_demo" model="hospital.doctor">
         <field name="name">Doctor 3</field>
         <field name="description">Specialist in Pediatrics</field>
     </record>
-
 </odoo>

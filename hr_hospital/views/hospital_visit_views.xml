@@ -10,6 +10,9 @@
                 <field name="date"/>
                 <field name="doctor_id"/>
                 <field name="patient_id"/>
+                <field name="is_plan"/>
+                <field name="appointment_date"/>
+                <field name="appointment_hour"/>
                 <field name="diagnosis_id"/>
                 <field name="is_finished"/>
                 <field name="description"/>
@@ -31,6 +34,13 @@
                         <field name="diagnosis_id"/>
                         <field name="is_finished"/>
                         <field name="description"/>
+                    </group>
+                </sheet>
+                <sheet>
+                    <group>
+                        <field name="is_plan"/>
+                        <field name="appointment_date"/>
+                        <field name="appointment_hour"/>
                     </group>
                 </sheet>
             </form>
