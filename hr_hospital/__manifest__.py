@@ -4,7 +4,7 @@
     'author': "dales",
     'website': "https://github.com/Dales-Kas",
     'category': 'Extra Tools',
-    'version': '16.0.2.0.1',
+    'version': '16.0.3.0.1',
     'license': "OPL-1",
 
     # any module necessary for this one to work correctly
@@ -25,6 +25,7 @@
         'wizard/set_personal_doctor_multi_wizard_views.xml',
         'wizard/disease_report_wizard_views.xml',
         'wizard/create_doctor_schedule_wizard_views.xml',
+        'wizard/change_patient_visit_date_wizard_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

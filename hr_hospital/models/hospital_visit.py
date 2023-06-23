@@ -35,7 +35,6 @@ class HospitalVisit(models.Model):
         return super(HospitalVisit, self).write(vals)
 
     @api.constrains('date', 'doctor_id')
-    @api.onchange('date', 'doctor_id')
     def _check_date_doctor(self):
         for visit in self:
             if visit.is_finished:
@@ -50,16 +49,14 @@ class HospitalVisit(models.Model):
         })
         self.diagnosis_id = diagnosis.id
 
-    @api.constrains('is_plan',
-                    'appointment_date',
-                    'appointment_hour',
-                    'doctor_id')
+    @api.constrains('is_plan', 'appointment_date',
+                    'appointment_hour', 'doctor_id')
     def _check_unique_plan_date(self):
         for visit in self:
             # check planned hour:
-            if visit.is_plan and\
+            if visit.is_plan and \
                     (visit.appointment_hour > 23
-                        or visit.appointment_hour < 0):
+                     or visit.appointment_hour < 0):
                 raise ValidationError(_('time must be between 0-23!'))
             # check planned date:
             if visit.is_plan and not visit.appointment_date:

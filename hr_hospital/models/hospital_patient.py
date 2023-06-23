@@ -26,14 +26,17 @@ class HospitalPatient(models.Model):
             else:
                 patient.age = 0
 
-    @api.constrains('personal_doctor_id')
-    def create_personal_doctor_history(self):
-        if self.personal_doctor_id:
-            self.env['hospital.doctor.history'].create({
-                'patient_id': self.id,
-                'doctor_id': self.personal_doctor_id.id,
-                'date': fields.Datetime.now(),
-            })
+    def write(self, vals):
+        res = super(HospitalPatient, self).write(vals)
+        if 'personal_doctor_id' in vals:
+            for patient in self:
+                if self.personal_doctor_id:
+                    self.env['hospital.doctor.history'].create({
+                        'patient_id': patient.id,
+                        'doctor_id': patient.personal_doctor_id.id,
+                        'date': fields.Datetime.now(),
+                    })
+        return res
 
     def action_open_wizard(self):
         return {

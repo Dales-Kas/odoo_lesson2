@@ -37,8 +37,8 @@ class HospitalDisease(models.Model):
     def _compute_complete_name(self):
         for obj in self:
             if obj.parent_id:
-                obj.complete_name = '%s / %s' % (obj.parent_id.complete_name,
-                                                 obj.name)
+                obj.complete_name = f"{obj.parent_id.complete_name}" \
+                                    f" / {obj.name}"
             else:
                 obj.complete_name = obj.name
 
@@ -50,5 +50,5 @@ class HospitalDisease(models.Model):
     @api.constrains('parent_id')
     def _check_category_recursion(self):
         if not self._check_recursion():
-            raise exceptions.ValidationError(_('You cannot create \
-recursive diseases.'))
+            raise exceptions.ValidationError(_('You cannot create'
+                                               'recursive diseases.'))

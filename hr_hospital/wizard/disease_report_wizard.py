@@ -16,3 +16,17 @@ class DiseaseReportWizard(models.TransientModel):
             'res_model': 'disease.report.wizard',
             'target': 'current',
         }
+
+    def create_report(self):
+        report_data = []
+        all_disease = self.env['hospital.disease'].search()
+        for disease in all_disease:
+            qty = self.env['hospital.diagnosis'].search_count([
+                ('disease_id', 'child_of', disease.id)
+            ])
+            report_data.append({
+                'disease_id': disease.id,
+                'qty': qty,
+            })
+            disease.disease_count = self.env['hospital.diagnosis'].\
+                search_count([('disease_id', 'child_of', disease.id)])

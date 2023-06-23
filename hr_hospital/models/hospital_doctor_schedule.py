@@ -25,5 +25,5 @@ class HospitalDoctorSchedule(models.Model):
             ])
             if existing_schedule:
                 raise ValidationError(
-                    _('Schedule already exists\
-for this doctor at the given hour.'))
+                    _('Schedule already exists'
+                      'for this doctor at the given hour.'))

@@ -21,7 +21,4 @@ class SetPersonalDoctorMultiWizard(models.TransientModel):
 
     def action_set_doctor(self):
         self.ensure_one()
-        for patient in self.patient_ids:
-            patient.write({
-                'personal_doctor_id': self.doctor_id.id
-            })
+        self.patient_ids.write({'personal_doctor_id': self.doctor_id.id})

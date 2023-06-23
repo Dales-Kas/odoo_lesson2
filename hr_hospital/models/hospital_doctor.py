@@ -18,13 +18,16 @@ class HospitalDoctor(models.Model):
             if not doctor.is_intern:
                 raise exceptions.ValidationError(
                     _('Mentor can be selected only for the intern!'))
+            if doctor.mentor_id and self.id == doctor.mentor_id:
+                raise exceptions.ValidationError(
+                    _("It's impossible to choose an intern"
+                      "as a mentor doctor!"""))
             if doctor.mentor_id and doctor.mentor_id.is_intern:
                 raise exceptions.ValidationError(
-                    _("""It's impossible to choose an intern
-as a mentor doctor!"""))
+                    _("It's impossible to choose an intern"
+                      "as a mentor doctor!"""))
 
-    @api.onchange('is_intern')
-    @api.constrains('is_intern')
+    @api.depends('is_intern')
     def _onchange_is_intern(self):
         for doctor in self:
             if not doctor.is_intern:

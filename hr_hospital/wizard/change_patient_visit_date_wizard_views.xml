@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="change_patient_visit_date_wizard_view_form" model="ir.ui.view">
+        <field name="name">change.patient.visit.date.wizard.form</field>
+        <field name="model">change.patient.visit.date.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="patient_id" placeholder="Select patient to change visit date" options="{'no_create': True}"/>
+                        <field name="appointment_date" placeholder="old date"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="appointment_new_date" placeholder="new date"/>
+                            <field name="appointment_new_hour" placeholder="new hour"/>
+                            <field name="doctor_id" placeholder="new doctor"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_change_visit_date"
+                            string="Set"
+                            type="object"
+                            class="btn-primary"/>
+                    <button special="cancel" class="oe_link" string="Close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_change_patient_visit_date_wizard" model="ir.actions.act_window">
+        <field name="name">Change visit date</field>
+        <field name="res_model">change.patient.visit.date.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_hospital_visit"/>
+        <field name="binding_view_types">list</field>
+        <field name="binding_type">action</field>
+    </record>
+
+</odoo>
