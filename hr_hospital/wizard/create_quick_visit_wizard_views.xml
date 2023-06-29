@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="create_quick_visit_wizard_view_form" model="ir.ui.view">
+        <field name="name">create.quick.visit.wizard.form</field>
+        <field name="model">create.quick.visit.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="patient_id" placeholder="Select patient" options="{'no_create': True}"/>
+                        <field name="doctor_id" placeholder="Select doctor" options="{'no_create': True}"/>
+                        <field name="appointment_date" placeholder="Date"/>
+                        <field name="appointment_hour" placeholder="Hour (0-23)"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_create_visit"
+                            string="Set"
+                            type="object"
+                            class="btn-primary"/>
+                    <button special="cancel" class="oe_link" string="Close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+<!--    <record id="action_create_quick_visit_wizard" model="ir.actions.act_window">-->
+<!--        <field name="name">Create visit</field>-->
+<!--        <field name="res_model">create_quick_visit.wizard</field>-->
+<!--        <field name="view_mode">form</field>-->
+<!--        <field name="target">new</field>-->
+<!--        <field name="binding_model_id" ref="model_hospital_visit"/>-->
+<!--        <field name="binding_view_types">list</field>-->
+<!--        <field name="binding_type">action</field>-->
+<!--    </record>-->
+
+</odoo>

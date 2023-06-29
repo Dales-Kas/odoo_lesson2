@@ -15,6 +15,47 @@
         </field>
     </record>
 
+    <record id="hospital_doctor_view_search" model="ir.ui.view">
+        <field name="name">hospital.doctor.view.search</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="is_intern" string="Intern Doctors"/>
+                <field name="intern_ids"/>
+                <filter name="filter_is_intern" string="Intern doctors" domain="[('is_intern', '=', True)]"/>
+                <filter name="filter_is_mentor" string="Mentor doctors" domain="[('intern_ids', '!=', False)]"/>
+                <filter name="filter_is_not_personal_doctor" string="Not personal doctor" domain="[('patient_ids', '=', False)]"/>
+                <separator/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hospital_doctor_kanban" model="ir.ui.view">
+        <field name="name">hospital.doctor.kanban</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" default_group_by="specialty">
+                <templates>
+                  <t t-name="kanban-box">
+                      <div class="oe_kanban_global_click">
+                          <field name="name"/>
+                      </div>
+                      <button name="action_create_visit"
+                            string="+"
+                            type="object"
+                            class="btn-primary"/>
+                  </t>
+                </templates>
+                <div>
+                    <field name="description"/>
+                    <field name="specialty"/>
+                    <field name="is_intern"/>
+                    <field name="mentor_id" attrs="{'invisible': [('is_intern', '=', False)]}"/>
+                </div>
+            </kanban>
+        </field>
+    </record>
+
     <record id="hospital_doctor_view_form" model="ir.ui.view">
         <field name="name">hospital.doctor.view.form</field>
         <field name="model">hospital.doctor</field>
@@ -26,8 +67,29 @@
                         <field name="description"/>
                         <field name="specialty"/>
                         <field name="is_intern"/>
-                        <field name="mentor_id"/>
+                        <field name="mentor_id" attrs="{'invisible': [('is_intern', '=', False)]}"/>
                     </group>
+                    <notebook>
+<!--                         <page string="Mentor:" attrs="{'invisible': [('mentor_id', '=', False)]}">-->
+<!--                             <field name="mentor_id" readonly="1">-->
+<!--                                <field name="name" readonly="1" string="Mentor Name"/>-->
+<!--                                <field name="specialty" readonly="1" string="Mentor Specialty"/>-->
+<!--                             </field>-->
+<!--                        </page>-->
+                        <page string="Doctor interns:" attrs="{'invisible': [('is_intern', '=', True)]}">
+                            <field name="intern_ids">
+                                <kanban class="o_kanban_mobile" default_group_by="name" create="False">
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_global_click">
+                                                <field name="name" readonly="1"/>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
@@ -36,7 +98,7 @@
      <record id="hospital_doctor_action_view_tree" model="ir.actions.act_window">
         <field name="name">Doctors</field>
         <field name="res_model">hospital.doctor</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
     </record>
 
     <menuitem id="hospital_doctor_menu"

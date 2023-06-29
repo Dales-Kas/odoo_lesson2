@@ -15,6 +15,12 @@ class HospitalPatient(models.Model):
         comodel_name='hospital.contact.person')
     personal_doctor_id = fields.Many2one(
         comodel_name='hospital.doctor')
+    doctor_history_ids = fields.One2many(
+        comodel_name='hospital.doctor.history',
+        inverse_name='patient_id')
+    disease_history_ids = fields.One2many(
+        comodel_name='hospital.diagnosis',
+        inverse_name='patient_id')
 
     @api.depends('birth_date')
     def _compute_age(self):
@@ -47,5 +53,54 @@ class HospitalPatient(models.Model):
             'target': 'new',
             'context': {
                 'default_patient_ids': self.ids,
+            },
+        }
+
+    def action_open_visit(self):
+        self.ensure_one()
+        return {
+            'name': _('Patient visits'),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'tree,form',
+            'res_model': 'hospital.visit',
+            'target': 'current',
+            'domain': [('patient_id', '=', self.id)],
+        }
+
+    def action_open_analysis(self):
+        self.ensure_one()
+        return {
+            'name': _('Patient analyses'),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'tree,form',
+            'res_model': 'hospital.analysis',
+            'target': 'current',
+            'domain': [('patient_id', '=', self.id)],
+        }
+
+    def action_open_diagnosis(self):
+        self.ensure_one()
+        return {
+            'name': _('Patient diagnoses'),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'tree,form',
+            'res_model': 'hospital.diagnosis',
+            'target': 'current',
+            'domain': [('patient_id', '=', self.id)],
+        }
+
+    def action_create_visit(self):
+        self.ensure_one()
+        return {
+            'name': _('Quick visit create'),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'create.quick.visit.wizard',
+            'target': 'new',
+            'context': {
+                'default_patient_id': self.id,
+                'default_doctor_id': self.personal_doctor_id.id,
+                'default_appointment_date': fields.Date.today(),
+                'default_appointment_hour': 9,
             },
         }

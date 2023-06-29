@@ -13,10 +13,31 @@
                 <field name="is_plan"/>
                 <field name="appointment_date"/>
                 <field name="appointment_hour"/>
+                <field name="appointment_start_date"/>
+                <field name="appointment_end_date"/>
                 <field name="diagnosis_id"/>
                 <field name="is_finished"/>
                 <field name="description"/>
             </tree>
+        </field>
+    </record>
+
+    <record id="hospital_visit_calendar" model="ir.ui.view">
+        <field name="name">hospital.visit.calendar</field>
+        <field name="model">hospital.visit</field>
+        <field name="arch" type="xml">
+            <calendar date_start = "appointment_start_date" date_stop="appointment_end_date" mode="day"
+                form_view_id = "%(hospital_visit_view_form)d"
+                >
+                <field name="date"/>
+                <field name="doctor_id"/>
+                <field name="patient_id"/>
+                <field name="is_plan"/>
+                <field name="appointment_date"/>
+                <field name="appointment_hour"/>
+                <field name="diagnosis_id"/>
+                <field name="is_finished"/>
+            </calendar>
         </field>
     </record>
 
@@ -50,7 +71,7 @@
      <record id="hospital_visit_action_view_tree" model="ir.actions.act_window">
         <field name="name">visits</field>
         <field name="res_model">hospital.visit</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,calendar</field>
     </record>
 
     <menuitem id="hospital_visit_menu"

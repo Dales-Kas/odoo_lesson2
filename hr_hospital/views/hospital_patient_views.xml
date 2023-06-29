@@ -14,9 +14,11 @@
                 <field name="birth_date"/>
                 <field name="age"/>
                 <field name="passport"/>
-                <field name="contact_person_id"/>
+                <field name="phone"/>
+                <field name="email"/>
                 <field name="personal_doctor_id"/>
                 <field name="description"/>
+<!--                <field name="photo"/>-->
             </tree>
         </field>
     </record>
@@ -26,6 +28,24 @@
         <field name="model">hospital.patient</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="action_open_visit"
+                            string="Patient visits"
+                            type="object"
+                            class="btn-primary"/>
+                    <button name="action_open_analysis"
+                            string="Patient analyses"
+                            type="object"
+                            class="btn-primary"/>
+                    <button name="action_open_diagnosis"
+                            string="Patient diagnoses"
+                            type="object"
+                            class="btn-primary"/>
+                    <button name="action_create_visit"
+                            string="Create visit to the doctor"
+                            type="object"
+                            class="btn-primary"/>
+                </header>
                 <sheet>
                     <group>
                         <field name="name"/>
@@ -33,10 +53,21 @@
                         <field name="birth_date"/>
                         <field name="age"/>
                         <field name="passport"/>
+                        <field name="phone"/>
+                        <field name="email"/>
                         <field name="contact_person_id"/>
                         <field name="personal_doctor_id"/>
                         <field name="description"/>
+<!--                        <field name="photo"/>-->
                     </group>
+                    <notebook>
+                        <page string="Personal doctor history">
+                            <field name="doctor_history_ids" readonly="True"/>
+                        </page>
+                        <page string="Diseases history">
+                            <field name="disease_history_ids" readonly="True"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

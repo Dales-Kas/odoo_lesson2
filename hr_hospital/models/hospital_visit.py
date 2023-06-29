@@ -1,3 +1,4 @@
+from datetime import timedelta
 from odoo import models, fields, api, exceptions, _
 from odoo.exceptions import ValidationError
 
@@ -13,13 +14,21 @@ class HospitalVisit(models.Model):
     patient_id = fields.Many2one(
         comodel_name='hospital.patient')
     diagnosis_id = fields.Many2one(
-        comodel_name='hospital.diagnosis')
+        comodel_name='hospital.diagnosis',
+        domain=[('visit_id', '=', id)]
+    )
     description = fields.Text()
     is_finished = fields.Boolean()
     active = fields.Boolean(default=True)
     is_plan = fields.Boolean(string="Is Planned Appointment")
     appointment_date = fields.Date()
     appointment_hour = fields.Integer()
+    appointment_start_date = fields.Datetime(
+        compute='_compute_appointment_date'
+    )
+    appointment_end_date = fields.Datetime(
+        compute='_compute_appointment_date'
+    )
 
     def unlink(self):
         for visit in self:
@@ -33,6 +42,17 @@ class HospitalVisit(models.Model):
             raise exceptions.ValidationError(_(
                 'You cannot deactivate a visit with a diagnosis.'))
         return super(HospitalVisit, self).write(vals)
+
+    def _compute_appointment_date(self):
+        for visit in self:
+            if visit.appointment_date:
+                visit.appointment_start_date = \
+                    fields.Datetime.to_datetime(visit.appointment_date) + \
+                    timedelta(hours=float(visit.appointment_hour))
+            else:
+                visit.appointment_start_date = visit.date
+            visit.appointment_end_date = \
+                visit.appointment_start_date + timedelta(hours=float(1))
 
     @api.constrains('date', 'doctor_id')
     def _check_date_doctor(self):

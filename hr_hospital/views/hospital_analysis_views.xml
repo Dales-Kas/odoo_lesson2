@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="hospital_analysis_view_tree" model="ir.ui.view">
+        <field name="name">hospital.analysis.view.tree (hr_hospital)</field>
+        <field name="model">hospital.analysis</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="doctor_id"/>
+                <field name="patient_id"/>
+                <field name="type"/>
+                <field name="comment"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="hospital_analysis_view_pivot" model="ir.ui.view">
+        <field name="name">hospital.analysis.view.pivot</field>
+        <field name="model">hospital.analysis</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="date" type="col" interval="month"/>
+                <field name="type" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="hospital_analysis_view_search" model="ir.ui.view">
+        <field name="name">hospital.analysis.view.search</field>
+        <field name="model">hospital.analysis</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="patient_id" string="Patient's name" filter_domain="[('patient_id.name', 'ilike', self)]"/>
+                <field name="patient_id" string="Patient's phone" filter_domain="[('patient_id.phone', 'ilike', self)]"/>
+                <filter name="filter_group_by_type" context="{'group_by': 'type'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hospital_analysis_view_form" model="ir.ui.view">
+        <field name="name">hospital.analysis.view.form</field>
+        <field name="model">hospital.analysis</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="date"/>
+                        <field name="doctor_id"/>
+                        <field name="patient_id"/>
+                        <field name="type"/>
+                        <field name="comment"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record id="hospital_analysis_action_view_tree" model="ir.actions.act_window">
+        <field name="name">Analysis</field>
+        <field name="res_model">hospital.analysis</field>
+        <field name="view_mode">tree,pivot,form</field>
+    </record>
+
+    <menuitem id="hospital_analysis_menu"
+              name="Analyses"
+              parent="hospital_document_menu"
+              action="hospital_analysis_action_view_tree"
+              sequence="20"/>
+
+</odoo>

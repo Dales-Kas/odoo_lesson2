@@ -20,7 +20,8 @@ class HospitalDiagnosis(models.Model):
     doctor_comment = fields.Text(string="Mentor doctor's comment")
     visit_id = fields.Many2one(
         'hospital.visit',
-        readonly=True)
+        readonly=True
+    )
 
     @api.constrains('doctor_comment')
     def _check_doctor_comment(self):

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="hospital_diagnosis_view_tree" model="ir.ui.view">
+        <field name="name">hospital.diagnosis.view.tree</field>
+        <field name="model">hospital.diagnosis</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="doctor_id"/>
+                <field name="patient_id"/>
+                <field name="disease_id"/>
+                <field name="appointment"/>
+                <field name="doctor_comment"/>
+                <field name="visit_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hospital_diagnosis_view_pivot" model="ir.ui.view">
+        <field name="name">hospital.diagnosis.view.pivot</field>
+        <field name="model">hospital.diagnosis</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="date" type="row"/>
+                <field name="doctor_id" type="row"/>
+                <field name="patient_id" type="row"/>
+                <field name="disease_id" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="hospital_diagnosis_view_graph" model="ir.ui.view">
+        <field name="name">hospital.diagnosis.view.graph</field>
+        <field name="model">hospital.diagnosis</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="date" interval="month"/>
+                <field name="disease_id"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="hospital_diagnosis_view_search" model="ir.ui.view">
+        <field name="name">hospital.diagnosis.view.search</field>
+        <field name="model">hospital.diagnosis</field>
+        <field name="arch" type="xml">
+            <search>
+                <searchpanel>
+                    <field name="disease_id" hierarchize="1" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="hospital_diagnosis_view_form" model="ir.ui.view">
+        <field name="name">hospital.diagnosis.view.form</field>
+        <field name="model">hospital.diagnosis</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="date"/>
+                        <field name="doctor_id"/>
+                        <field name="patient_id"/>
+                        <field name="disease_id"/>
+                        <field name="appointment"/>
+                        <field name="doctor_comment"/>
+                        <field name="visit_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record id="hospital_diagnosis_action_view_tree" model="ir.actions.act_window">
+        <field name="name">Diagnoses</field>
+        <field name="res_model">hospital.diagnosis</field>
+        <field name="view_mode">tree,pivot,form,graph</field>
+    </record>
+
+     <menuitem id="hospital_diagnosis_menu"
+              name="Diagnoses"
+              parent="hospital_document_menu"
+              action="hospital_diagnosis_action_view_tree"
+              sequence="10"/>
+
+</odoo>
