@@ -18,7 +18,7 @@
                 <field name="email"/>
                 <field name="personal_doctor_id"/>
                 <field name="description"/>
-<!--                <field name="photo"/>-->
+                <field name="severity"/>
             </tree>
         </field>
     </record>
@@ -58,6 +58,7 @@
                         <field name="contact_person_id"/>
                         <field name="personal_doctor_id"/>
                         <field name="description"/>
+                        <field name="severity"/>
 <!--                        <field name="photo"/>-->
                     </group>
                     <notebook>

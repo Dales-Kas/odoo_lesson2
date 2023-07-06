@@ -21,6 +21,11 @@ class HospitalPatient(models.Model):
     disease_history_ids = fields.One2many(
         comodel_name='hospital.diagnosis',
         inverse_name='patient_id')
+    severity = fields.Selection([
+        ('low', 'Low'),
+        ('medium', 'Medium'),
+        ('high', 'High')],
+        default='low')
 
     @api.depends('birth_date')
     def _compute_age(self):

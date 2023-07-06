@@ -1,0 +1,133 @@
+<odoo>
+    <template id="doctor_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <div cless="page">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width: 40%;">
+                                    <div class="col-6">
+                                        <img t-att-src="image_data_uri(user.company_id.logo)"
+                                             alt="Logo"/>
+                                        <h1 t-esc="user.company_id.name"/>
+                                        <h5 t-esc="user.company_id.phone"/>
+                                        <h5 t-esc="user.company_id.email"/>
+                                    </div>
+                                </td>
+                                <td style="width: 60%; text-align: right;">
+                                    <div>
+                                        <h3 style="color: gray;">Doctor:</h3>
+                                        <span>
+                                            <h1 t-field="doc.name"/>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <h3 style="color: gray;">Specialty:</h3>
+                                        <span>
+                                            <h1 t-field="doc.specialty"/>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="col-6" style="width: 100%;">
+                            <br/>
+                            <hr style="border: none; border-top: 1px solid black; width: 100%;"/>
+                            <h1>Doctor's patients:</h1>
+                            <br/>
+                            <table class="table table-sm">
+                                <thread>
+                                    <tr>
+                                        <th>Severity</th>
+                                        <th>Patient</th>
+                                        <th>gender</th>
+                                        <th>age</th>
+                                        <th>phone</th>
+                                    </tr>
+                                </thread>
+                                <tbody>
+                                    <t t-foreach="doc.patient_ids" t-as="patient">
+                                        <tr>
+                                            <td>
+                                                <t t-if="patient.severity == 'low'">
+                                                    <span style="display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: green;"/>
+                                                </t>
+                                                <t t-elif="patient.severity == 'medium'">
+                                                    <span style="display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: yellow;"/>
+                                                </t>
+                                                <t t-elif="patient.severity == 'high'">
+                                                    <span style="display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: red;"/>
+                                                </t>
+                                                <t t-else="patient.severity">
+                                                    <span style="display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: gray;"/>
+                                                </t>
+                                            </td>
+
+                                            <td t-esc="patient.name"/>
+                                            <td t-esc="patient.gender"/>
+                                            <td t-esc="patient.age"/>
+                                            <td t-esc="patient.phone"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+
+                            <div class="col-6" style="width: 100%;">
+                                <br/>
+                                <hr style="border: none; border-top: 1px solid black; width: 100%;"/>
+                                <h1>Doctor's visits:</h1>
+                                <br/>
+                                <table class="table table-sm">
+                                    <thread>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Patient</th>
+                                            <th>Description</th>
+                                            <th>Finished</th>
+                                        </tr>
+                                    </thread>
+                                    <tbody>
+                                        <t t-foreach="doc.visit_ids" t-as="visit">
+                                            <tr>
+                                                <td t-esc="visit.date"/>
+                                                <td t-esc="visit.patient_id.name"/>
+                                                <td>
+                                                    <t t-if="visit.description == ''">
+                                                        <span>-</span>
+                                                    </t>
+                                                    <t t-elif="visit.description">
+                                                        <span t-esc="visit.description"/>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <t t-if="visit.is_finished == True">
+                                                        <span style="display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: green;"/>
+                                                    </t>
+                                                    <t t-elif="visit.is_finished == False">
+                                                        <span style="display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: yellow;"/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                        <div style="text-align:right;">
+                            <p>Created:
+                                <strong>
+                                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                                </strong>
+                            </p>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

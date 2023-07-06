@@ -10,6 +10,7 @@ class HospitalDoctor(models.Model):
     description = fields.Text()
     specialty = fields.Char()
     is_intern = fields.Boolean()
+    color = fields.Integer('Color Index', readonly=False)
     mentor_id = fields.Many2one(
         comodel_name='hospital.doctor'
     )
@@ -20,6 +21,10 @@ class HospitalDoctor(models.Model):
     patient_ids = fields.One2many(
         comodel_name='hospital.patient',
         inverse_name='personal_doctor_id',
+    )
+    visit_ids = fields.One2many(
+        comodel_name='hospital.visit',
+        inverse_name='doctor_id',
     )
 
     @api.constrains('mentor_id')

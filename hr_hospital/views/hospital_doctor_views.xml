@@ -35,23 +35,69 @@
         <field name="model">hospital.doctor</field>
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile" default_group_by="specialty">
-                <templates>
-                  <t t-name="kanban-box">
-                      <div class="oe_kanban_global_click">
-                          <field name="name"/>
-                      </div>
-                      <button name="action_create_visit"
-                            string="+"
-                            type="object"
-                            class="btn-primary"/>
-                  </t>
-                </templates>
-                <div>
-                    <field name="description"/>
+                <field name="description"/>
                     <field name="specialty"/>
                     <field name="is_intern"/>
+                    <field name="color"/>
                     <field name="mentor_id" attrs="{'invisible': [('is_intern', '=', False)]}"/>
-                </div>
+                    <templates>
+                      <t t-name="kanban-box">
+                          <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_global_click">
+                              <h3 class="o_kanban_card_header_title">
+                                <field name="name" options="{'color_field': 'color'}"/>
+                              </h3>
+                              <div>
+                                  <field name="specialty"/>
+                              </div>
+                              <div class="o_dropdown_kanban dropdown">
+                                  <a class="dropdown-toggle btn"
+                                     role="button"
+                                     data-toggle="dropdown"
+                                     href="#">
+                                      <span class="fa fa-ellipsis-v" title="munu"
+                                            aria-hidden="true"/>
+                                  </a>
+                                  <div class="o_kanban_card_manage_setting row mt16">
+                                    <div class="dropdown-menu" role="menu">
+                                        <t t-if="widget.editable">
+                                            <a role="menuitem"
+                                               type="edit"
+                                                class="dropdown-item">
+                                                Edit
+                                            </a>
+                                        </t>
+                                        <t t-if="widget.deletable">
+                                            <a role="menuitem"
+                                               type="delete"
+                                                class="dropdown-item">
+                                                Delete
+                                            </a>
+                                        </t>
+                                        <ul class="oe_kanban_colorpicker"
+                                            data-field="color"/>
+                                    </div>
+                                  </div>
+                              </div>
+
+                              <div class="col-sx-12" style="height: 15px;"/>
+
+                                  <div class="container o_kanban_card_content">
+                                      <div class="row">
+                                          <div class="col-6 o_Kanban_primary_left">
+                                              <field name="patient_ids"
+                                                     widget="many2many_tags"/>
+                                          </div>
+                                          <div class="col-6 o_Kanban_primary_right">
+                                              <button name="action_create_visit"
+                                                      string="+ add visit"
+                                                      type="object"
+                                                      class="btn-primary"/>
+                                          </div>
+                                      </div>
+                                  </div>
+                          </div>
+                      </t>
+                    </templates>
             </kanban>
         </field>
     </record>
@@ -70,12 +116,6 @@
                         <field name="mentor_id" attrs="{'invisible': [('is_intern', '=', False)]}"/>
                     </group>
                     <notebook>
-<!--                         <page string="Mentor:" attrs="{'invisible': [('mentor_id', '=', False)]}">-->
-<!--                             <field name="mentor_id" readonly="1">-->
-<!--                                <field name="name" readonly="1" string="Mentor Name"/>-->
-<!--                                <field name="specialty" readonly="1" string="Mentor Specialty"/>-->
-<!--                             </field>-->
-<!--                        </page>-->
                         <page string="Doctor interns:" attrs="{'invisible': [('is_intern', '=', True)]}">
                             <field name="intern_ids">
                                 <kanban class="o_kanban_mobile" default_group_by="name" create="False">
@@ -98,7 +138,7 @@
      <record id="hospital_doctor_action_view_tree" model="ir.actions.act_window">
         <field name="name">Doctors</field>
         <field name="res_model">hospital.doctor</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">kanban,tree,form</field>
     </record>
 
     <menuitem id="hospital_doctor_menu"
