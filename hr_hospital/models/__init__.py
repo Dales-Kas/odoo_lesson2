@@ -8,3 +8,4 @@ from . import hospital_diagnosis
 from . import hospital_doctor_history
 from . import hospital_doctor_schedule
 from . import hospital_analysis
+from . import hospital_doctor_category

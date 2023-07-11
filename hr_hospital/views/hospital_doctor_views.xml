@@ -11,6 +11,8 @@
                 <field name="specialty"/>
                 <field name="is_intern"/>
                 <field name="mentor_id"/>
+                <field name="category_id"/>
+                <field name="user_id"/>
             </tree>
         </field>
     </record>
@@ -37,6 +39,7 @@
             <kanban class="o_kanban_mobile" default_group_by="specialty">
                 <field name="description"/>
                     <field name="specialty"/>
+                    <field name="category_id"/>
                     <field name="is_intern"/>
                     <field name="color"/>
                     <field name="mentor_id" attrs="{'invisible': [('is_intern', '=', False)]}"/>
@@ -48,6 +51,7 @@
                               </h3>
                               <div>
                                   <field name="specialty"/>
+                                  <field name="category_id"/>
                               </div>
                               <div class="o_dropdown_kanban dropdown">
                                   <a class="dropdown-toggle btn"
@@ -112,7 +116,9 @@
                         <field name="name"/>
                         <field name="description"/>
                         <field name="specialty"/>
+                        <field name="category_id"/>
                         <field name="is_intern"/>
+                        <field name="user_id"/>
                         <field name="mentor_id" attrs="{'invisible': [('is_intern', '=', False)]}"/>
                     </group>
                     <notebook>

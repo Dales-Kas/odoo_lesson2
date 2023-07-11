@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record id="category_cardiologist" model="hospital.doctor.category">
+        <field name="name">Cardiologist</field>
+    </record>
+    <record id="doctor_dermatologist" model="hospital.doctor.category">
+        <field name="name">Dermatologist</field>
+    </record>
+    <record id="doctor_endocrinologist" model="hospital.doctor.category">
+        <field name="name">Endocrinologist</field>
+    </record>
+</odoo>

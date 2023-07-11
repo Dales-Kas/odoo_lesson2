@@ -15,6 +15,7 @@
         'security/ir.model.access.csv',
         'views/hospital_menus.xml',
         'data/hospital_disease_data.xml',
+        'data/hospital_doctor_category_data.xml',
         'views/hospital_doctor_views.xml',
         'views/hospital_patient_views.xml',
         'views/hospital_disease_views.xml',

@@ -26,6 +26,13 @@ class HospitalDoctor(models.Model):
         comodel_name='hospital.visit',
         inverse_name='doctor_id',
     )
+    user_id = fields.Many2one(
+        comodel_name='res.users',
+        string='Responsible',
+    )
+    category_id = fields.Many2one(
+        comodel_name='hospital.doctor.category',
+    )
 
     @api.constrains('mentor_id')
     def _check_mentor(self):
